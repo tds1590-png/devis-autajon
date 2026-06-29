@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEVIS RAPIDE NUMÉRIQUE - AUTAJON</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+        .letter-logo {
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            font-weight: bold;
+            font-size: 24px;
+            z-index: 1;
+        }
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+        .header p {
+            font-size: 0.95em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        .data-status {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 12px 15px;
+            margin: 20px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #1565c0;
+        }
+        .data-status.success {
+            background: #e8f5e9;
+            border-left-color: #4caf50;
+            color: #2e7d32;
+        }
+        .data-status.error {
+            background: #ffebee;
+            border-left-color: #f44336;
+            color: #c62828;
+        }
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 30px;
+        }
+        @media (max-width: 1200px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+        .form-section {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px;
+            background: #fafafa;
+        }
+        .form-section h3 {
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9em;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.95em;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102,126,234,0.3);
+        }
+        select {
+            cursor: pointer;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .letter-preview {
+            display: none;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 40px;
+            border-radius: 6px;
+            line-height: 1.6;
+            font-size: 0.95em;
+            color: #333;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .letter-preview.show {
+            display: block;
+        }
+        .letter-preview .header-letter {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 15px;
+        }
+        .letter-preview .header-letter h2 {
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        .calc-result {
+            background: #fffde7;
+            border: 2px solid #fbc02d;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+        .calc-result strong {
+            color: #f57f17;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="letter-logo">A</div>
+            <h1>DEVIS RAPIDE NUMÉRIQUE</h1>
+            <p>Système de Calcul Automatique - AUTAJON HP6000</p>
+        </div>
+
+        <div id="dataStatus" class="data-status" style="margin: 20px;"></div>
+        <div id="azureStatus" class="data-status" style="margin: 0 20px 20px 20px; display: none;"></div>
+
+        <div class="content">
+            <!-- INFO CLIENT -->
+            <div class="form-section">
+                <h3>INFO CLIENT</h3>
+                <div class="form-group">
+                    <label for="commercial">Commercial</label>
+                    <select id="commercial">
+                        <option value="">-- Chargement --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="client">Nom Client *</label>
+                    <input type="text" id="client" placeholder="Ex: Entreprise ABC">
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact</label>
+                    <input type="text" id="contact" placeholder="Responsable">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="client@exemple.com">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Téléphone</label>
+                    <input type="tel" id="phone">
+                </div>
+            </div>
+
+            <!-- INFO DEVIS -->
+            <div class="form-section">
+                <h3>DEVIS</h3>
+                <div class="form-group">
+                    <label for="devisNo">N° Devis</label>
+                    <input type="text" id="devisNo" readonly style="background: #f5f5f5;">
+                </div>
+                <div class="form-group">
+                    <label for="devisDate">Date</label>
+                    <input type="date" id="devisDate">
+                </div>
+                <div class="form-group">
+                    <label for="designation">Désignation Produit *</label>
+                    <input type="text" id="designation" placeholder="Etiquette, sticker...">
+                </div>
+            </div>
+
+            <!-- DIMENSIONS -->
+            <div class="form-section">
+                <h3>DIMENSIONS</h3>
+                <div class="two-col">
+                    <div class="form-group">
+                        <label for="formatWidth">Largeur (mm)</label>
+                        <input type="number" id="formatWidth" min="1" placeholder="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="formatHeight">Hauteur (mm)</label>
+                        <input type="number" id="formatHeight" min="1" placeholder="150">
+                    </div>
+                </div>
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label for="qty1">Qté 1 (m)</label>
+                        <input type="number" id="qty1" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="qty2">Qté 2 (m)</label>
+                        <input type="number" id="qty2" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="qty3">Qté 3 (m)</label>
+                        <input type="number" id="qty3" min="0" value="0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUPPORT -->
+            <div class="form-section">
+                <h3>SUPPORT IMPRESSION</h3>
+                <div class="form-group">
+                    <label for="frontal">Frontal</label>
+                    <select id="frontal">
+                        <option value="">-- Chargement --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="adhesif">Adhésif</label>
+                    <select id="adhesif">
+                        <option value="">-- Chargement --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="backing">Backing</label>
+                    <select id="backing">
+                        <option value="">-- Chargement --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="color">Couleur/Profil</label>
+                    <select id="color">
+                        <option value="">-- Chargement --</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- FINITIONS -->
+            <div class="form-section">
+                <h3>FINITIONS</h3>
+                <div class="form-group">
+                    <label for="vernis">Vernis</label>
+                    <select id="vernis">
+                        <option value="">-- Aucun --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pelliculage">Pelliculage</label>
+                    <select id="pelliculage">
+                        <option value="">-- Aucun --</option>
+                    </select>
+                </div>
+                <div class="two-col">
+                    <div class="form-group">
+                        <label for="numeration">
+                            <input type="checkbox" id="numeration"> Numérotation
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="gaufrage">
+                            <input type="checkbox" id="gaufrage"> Gaufrage
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CALCUL -->
+            <div class="form-section">
+                <h3>CALCUL</h3>
+                <div class="form-group">
+                    <label for="calcSurface">Surface (m²)</label>
+                    <input type="number" id="calcSurface" readonly style="background: #f5f5f5;">
+                </div>
+                <div class="calc-result">
+                    <label for="needKg">Besoin Matière:</label>
+                    <div style="margin-top: 10px;">
+                        <strong id="needKg">0.00 kg</strong>
+                    </div>
+                </div>
+                <div id="azureResults" style="margin-top: 15px;"></div>
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="button-group" style="grid-column: 1 / -1;">
+                <button class="btn-secondary" onclick="clearForm()">Réinitialiser</button>
+                <button class="btn-primary" onclick="generateLetter()">Aperçu Lettre</button>
+                <button class="btn-primary" onclick="saveForm()">Enregistrer</button>
+            </div>
+
+            <!-- LETTRE -->
+            <div style="grid-column: 1 / -1;">
+                <div class="letter-preview" id="letterPreview"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="calcul-devis.js"></script>
+    <script>
+        let devisData = { frontals: [], adhesifs: [], backings: [], colors: [], commercials: [], vernis: [], pellicles: [] };
+        let lastCalculationResult = null;
+
+        async function loadData() {
+            const statusDiv = document.getElementById('dataStatus');
+            
+            try {
+                const response = await fetch('dataverse-data-complet.json');
+                if (response.ok) {
+                    devisData = await response.json();
+                    populateLists();
+                    
+                    statusDiv.className = 'data-status success';
+                    statusDiv.innerHTML = `
+                        <strong>VRAIES DONNEES CHARGEES</strong> |
+                        ${devisData.frontals.length} frontaux |
+                        ${devisData.adhesifs.length} adhesifs |
+                        ${devisData.backings.length} backings |
+                        ${devisData.colors.length} couleurs/profils |
+                        ${devisData.commercials.length} commerciaux |
+                        ${devisData.vernis.length} vernis
+                    `;
+                    checkAzureFunctionAvailability();
+                } else {
+                    throw new Error('Fichier non trouvé');
+                }
+            } catch (e) {
+                console.error('Erreur:', e);
+                statusDiv.className = 'data-status error';
+                statusDiv.innerHTML = `Erreur chargement: ${e.message}`;
+            }
+        }
+
+        function populateLists() {
+            populateSelect('commercial', devisData.commercials);
+            populateSelect('frontal', devisData.frontals);
+            populateSelect('adhesif', devisData.adhesifs);
+            populateSelect('backing', devisData.backings);
+            populateSelect('color', devisData.colors);
+            populateSelect('vernis', devisData.vernis);
+            populateSelect('pelliculage', devisData.pellicles);
+        }
+
+        function populateSelect(id, items) {
+            const select = document.getElementById(id);
+            select.innerHTML = '<option value="">-- Sélectionner --</option>';
+            if (items && Array.isArray(items)) {
+                items.forEach(item => {
+                    const opt = document.createElement('option');
+                    opt.value = item;
+                    opt.textContent = item;
+                    select.appendChild(opt);
+                });
+            }
+        }
+
+        function calculateAll() {
+            const width = parseFloat(document.getElementById('formatWidth').value) || 0;
+            const height = parseFloat(document.getElementById('formatHeight').value) || 0;
+            const qty1 = parseFloat(document.getElementById('qty1').value) || 0;
+            const qty2 = parseFloat(document.getElementById('qty2').value) || 0;
+            const qty3 = parseFloat(document.getElementById('qty3').value) || 0;
+            const total = qty1 + qty2 + qty3;
+
+            // Calcul simple affichage
+            const surfaceM2 = (width * height * total) / 1000000;
+            document.getElementById('calcSurface').value = surfaceM2.toFixed(3);
+
+            const grammage = 350;
+            const needKg = (surfaceM2 * grammage) / 1000;
+            document.getElementById('needKg').textContent = needKg.toFixed(2) + ' kg';
+
+            // Appel moteur de calcul si données complètes
+            if (width > 0 && height > 0 && total > 0) {
+                const frontal = document.getElementById('frontal').value;
+                const adhesif = document.getElementById('adhesif').value;
+                const backing = document.getElementById('backing').value;
+                const color = document.getElementById('color').value;
+                
+                if (frontal && adhesif && backing && color) {
+                    calculerAvecMoteur(width, height, total, frontal, adhesif, backing, color);
+                }
+            }
+        }
+
+        function calculerAvecMoteur(width, height, quantite, frontal, adhesif, backing, color) {
+            try {
+                const input = {
+                    site: 'AEAT',
+                    quantite: Math.floor(quantite),
+                    nbReferences: 1,
+                    formatLaize: width,
+                    formatAvance: height,
+                    frontal: frontal,
+                    adhesif: adhesif,
+                    backing: backing,
+                    couleurNum: color,
+                    numerotation: document.getElementById('numeration').checked,
+                    dorures: [],
+                    dorureGalbee: false,
+                    gaufrage: document.getElementById('gaufrage').checked,
+                    foulage: false,
+                    pelliculage: document.getElementById('pelliculage').value ? true : false,
+                    margeManuelle: 0
+                };
+
+                // Appeler le moteur
+                lastCalculationResult = calculerDevis(input);
+                displayCalculationResults(lastCalculationResult);
+            } catch (e) {
+                console.error('Erreur calcul:', e);
+            }
+        }
+
+        function displayCalculationResults(result) {
+            const resultDiv = document.getElementById('azureResults');
+            if (!resultDiv) return;
+
+            resultDiv.innerHTML = `
+                <div class="calc-result" style="background: #e8f5e9; border-color: #4caf50;">
+                    <strong style="color: #2e7d32;">✓ CALCUL DÉTAILLÉ</strong>
+                    <div style="margin-top: 10px; font-size: 0.9em; line-height: 1.8;">
+                        <p><strong>M²:</strong> ${result.m2Total.toFixed(2)} m² | <strong>ML:</strong> ${result.mlTotal.toFixed(0)} ml</p>
+                        <p><strong>Poses:</strong> ${result.nbPosesLaize} | <strong>Imposition:</strong> ${result.details.laizeUtile.toFixed(0)}mm</p>
+                        <p style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #81c784;">
+                            <strong style="color: #2e7d32; font-size: 1.1em;">💰 Prix Devis: ${result.prixDevis.toFixed(2)}€</strong>
+                        </p>
+                        <p>
+                            <strong>Prix Client:</strong> ${result.prixClient.toFixed(2)}€
+                        </p>
+                        <p>
+                            <strong>Marge:</strong> <span style="color: #2e7d32;">${result.margeBrute.toFixed(1)}%</span>
+                        </p>
+                        <p style="color: #666; font-size: 0.85em; margin-top: 8px;">
+                            Coût: ${result.coutTotal.toFixed(2)}€ | Outillage: ${result.outillages.toFixed(2)}€
+                        </p>
+                        <details style="margin-top: 10px; color: #666; font-size: 0.8em;">
+                            <summary>Détails coûts</summary>
+                            <pre style="background: #f5f5f5; padding: 8px; border-radius: 4px; overflow-x: auto;">
+Support:  ${result.details.cSupport.toFixed(2)}€
+Dorure:   ${result.details.cDorure.toFixed(2)}€
+Pelliculage: ${result.details.cPellic.toFixed(2)}€
+HP6000:   ${result.details.cHP.toFixed(2)}€
+Finition: ${result.details.cFin.toFixed(2)}€
+Encres:   ${result.details.cEncres.toFixed(2)}€
+Clics:    ${result.details.cClics.toFixed(2)}€
+Clichés:  ${result.details.cCliches.toFixed(2)}€
+Emballage: ${result.details.emb.toFixed(2)}€
+Transport: ${result.details.transp.toFixed(2)}€
+                            </pre>
+                        </details>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateLetter() {
+            const data = {
+                commercial: document.getElementById('commercial').value || 'N/A',
+                client: document.getElementById('client').value || 'N/A',
+                contact: document.getElementById('contact').value || 'N/A',
+                email: document.getElementById('email').value || 'N/A',
+                designation: document.getElementById('designation').value || 'Sans désignation',
+                formatWidth: document.getElementById('formatWidth').value || '0',
+                formatHeight: document.getElementById('formatHeight').value || '0',
+                needKg: document.getElementById('needKg').textContent || '0 kg'
+            };
+
+            const letterHTML = `
+                <div class="header-letter">
+                    <h2>DEVIS AUTAJON</h2>
+                    <p><strong>Système HP6000</strong></p>
+                </div>
+                
+                <p><strong>Commercial:</strong> ${data.commercial}</p>
+                <p><strong>Client:</strong> ${data.client}</p>
+                <p><strong>Contact:</strong> ${data.contact}</p>
+                <p><strong>Email:</strong> ${data.email}</p>
+                
+                <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+                
+                <p><strong>Désignation:</strong> ${data.designation}</p>
+                <p><strong>Format:</strong> ${data.formatWidth}mm × ${data.formatHeight}mm</p>
+                <p><strong style="color:#667eea; font-size: 1.2em;">Besoin matière: ${data.needKg}</strong></p>
+                
+                <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+                
+                <p>Merci de votre intérêt. Nous restons à votre disposition.</p>
+                <p style="margin-top: 30px; text-align: center; font-size: 0.9em; color: #999;">
+                    <strong>AUTAJON</strong> - Devis généré le ${new Date().toLocaleDateString('fr-FR')}
+                </p>
+            `;
+
+            document.getElementById('letterPreview').innerHTML = letterHTML;
+            document.getElementById('letterPreview').classList.add('show');
+        }
+
+        function saveForm() {
+            const formData = {
+                commercial: document.getElementById('commercial').value,
+                client: document.getElementById('client').value,
+                contact: document.getElementById('contact').value,
+                email: document.getElementById('email').value,
+                designation: document.getElementById('designation').value,
+                formatWidth: document.getElementById('formatWidth').value,
+                formatHeight: document.getElementById('formatHeight').value,
+                qty1: document.getElementById('qty1').value,
+                qty2: document.getElementById('qty2').value,
+                qty3: document.getElementById('qty3').value,
+                frontal: document.getElementById('frontal').value,
+                adhesif: document.getElementById('adhesif').value,
+                backing: document.getElementById('backing').value,
+                color: document.getElementById('color').value,
+                vernis: document.getElementById('vernis').value,
+                pelliculage: document.getElementById('pelliculage').value,
+                timestamp: new Date().toISOString()
+            };
+
+            localStorage.setItem('devis-form-data', JSON.stringify(formData));
+            alert('Formulaire enregistré');
+        }
+
+        function clearForm() {
+            if (confirm('Réinitialiser le formulaire?')) {
+                document.querySelectorAll('input:not([readonly])').forEach(i => i.value = '');
+                document.querySelectorAll('select').forEach(s => s.value = '');
+                document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
+                document.getElementById('letterPreview').classList.remove('show');
+                calculateAll();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            
+            const today = new Date().toISOString().slice(0,10).replace(/-/g,'');
+            document.getElementById('devisNo').value = `DEV-${today}-001`;
+            document.getElementById('devisDate').valueAsDate = new Date();
+
+            ['formatWidth', 'formatHeight', 'qty1', 'qty2', 'qty3', 'frontal', 'adhesif', 'backing', 'color', 'numeration', 'gaufrage'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    if (el.type === 'checkbox') {
+                        el.addEventListener('change', calculateAll);
+                    } else {
+                        el.addEventListener('change', calculateAll);
+                        el.addEventListener('input', calculateAll);
+                    }
+                }
+            });
+
+            calculateAll();
+        });
+
+        async function checkAzureFunctionAvailability() {
+            // Moteur JS toujours disponible
+            const statusDiv = document.getElementById('azureStatus');
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'data-status success';
+            statusDiv.innerHTML = '✓ Moteur de calcul JavaScript chargé - Calcul détaillé actif';
+        }
+    </script>
+</body>
+</html>

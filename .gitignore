@@ -66,10 +66,10 @@ credentials.json
 bin/
 obj/
 
-# Brouillons & tests non finalisés
-devis-simple.html
-devis-complet.html
-devis-complet-v*.html
+# Brouillons & tests non finalisés (MAIS GARDER devis-final.html!)
+# devis-simple.html (IGNORE)
+# devis-complet.html (IGNORE)
+# devis-complet-v*.html (IGNORE)
 test-*.html
 test-*.js
 MVP_*.html
@@ -105,42 +105,13 @@ DevisHP_Complete/
 DevisCalculator_Fresh/
 DevisCanvasApp_extracted/
 
-# Markdown d'exemple/brouillon
-00_PROMPT_COPILOT.md
-0*_*.md
-00_*.txt
-*_GUIDE.md
-*_INSTRUCTIONS.md
-ACTION_*.md
-COMPLETE_*.md
-COMPLETION_*.md
-CREATE_*.md
-DEPLOYMENT_*.md
-DIAGNOSTIC_*.md
-EXACT_*.md
-FINAL_*.md
-FINALIZATION_*.md
-FIX_*.md
-GENERATE_*.md
-GET_*.md
-GUIDE_*.md
-IMPORT_*.md
-INDEX.md
-MFA_*.md
-MVP_*.md
-MASS_*.md
-PREPARE_*.md
-PROJECT_*.md
-QUICK_*.md
-README-*.md
-READY_*.md
-RESOURCE_*.md
-SETUP_*.md
-START_*.md
-VISUAL_*.md
-_PROJECT_*.txt
-_*.txt
-_*.md
+# Markdown d'exemple/brouillon (MAIS GARDER les essentiels!)
+# Ignore: 00_PROMPT_COPILOT.md, 0*_*.md (brouillons)
+# KEEP: GUIDE_*.md, MOTEUR_*.md, DEPLOYMENT_*.md, PROJECT_SUMMARY.md, etc. (essentiels)
+
+# Fichiers à vraiment ignorer:
+test-*.md
+*_test_*.md
 
 # BUT: KEEP these essential files
 # ✓ devis-final.html
