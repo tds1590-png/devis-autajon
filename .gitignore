@@ -1,0 +1,160 @@
+# ============================================================
+# .gitignore - Devis AUTAJON
+# ============================================================
+
+# KEEP: Essential files for the project
+# ✓ HTML, JS, CSS - KEEP
+# ✓ CSV seed data - KEEP
+# ✓ PowerShell scripts - KEEP
+# ✓ JSON data exports - KEEP
+# ✓ Markdown docs - KEEP
+
+# IGNORE: Development/Temporary files
+# ============================================================
+
+# IDE & Editors
+.vscode/
+.idea/
+*.code-workspace
+*.swp
+*.swo
+*.sublime-*
+.DS_Store
+Thumbs.db
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Logs & Debug
+*.log
+npm-debug.log
+yarn-error.log
+*.stackdump
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+.~*
+
+# Build outputs (if any)
+dist/
+build/
+out/
+
+# Node (if ever needed)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment & credentials
+.env
+.env.local
+.env.*.local
+local.settings.json
+local.settings.*.json
+credentials.json
+
+# Power Apps/Azure
+*.msapp
+*.zip
+*.solution
+bin/
+obj/
+
+# Brouillons & tests non finalisés
+devis-simple.html
+devis-complet.html
+devis-complet-v*.html
+test-*.html
+test-*.js
+MVP_*.html
+*_test.*
+
+# Scripts d'essai/brouillon (garder extract-vraies-donnees.ps1!)
+test-*.ps1
+*_test.ps1
+IMPORT_*.ps1
+BULK_*.ps1
+MASS_*.ps1
+QUICK_*.ps1
+RUN_*.ps1
+
+# Fichiers de statut/historique
+*_status.txt
+deployment-status*.txt
+*_log.txt
+SESSION_*.md
+_solution_build/
+
+# Excel/Data temporaires
+*.xlsx
+Devis_*.xlsx
+Copie\ de\ *
+*_BACKUP*
+*_OLD*
+
+# Fichiers de travail
+work_msapp/
+DevisHP_Auto/
+DevisHP_Complete/
+DevisCalculator_Fresh/
+DevisCanvasApp_extracted/
+
+# Markdown d'exemple/brouillon
+00_PROMPT_COPILOT.md
+0*_*.md
+00_*.txt
+*_GUIDE.md
+*_INSTRUCTIONS.md
+ACTION_*.md
+COMPLETE_*.md
+COMPLETION_*.md
+CREATE_*.md
+DEPLOYMENT_*.md
+DIAGNOSTIC_*.md
+EXACT_*.md
+FINAL_*.md
+FINALIZATION_*.md
+FIX_*.md
+GENERATE_*.md
+GET_*.md
+GUIDE_*.md
+IMPORT_*.md
+INDEX.md
+MFA_*.md
+MVP_*.md
+MASS_*.md
+PREPARE_*.md
+PROJECT_*.md
+QUICK_*.md
+README-*.md
+READY_*.md
+RESOURCE_*.md
+SETUP_*.md
+START_*.md
+VISUAL_*.md
+_PROJECT_*.txt
+_*.txt
+_*.md
+
+# BUT: KEEP these essential files
+# ✓ devis-final.html
+# ✓ calcul-devis.js
+# ✓ dataverse-data-complet.json
+# ✓ extract-vraies-donnees.ps1
+# ✓ seed-data/*.csv (all CSVs)
+# ✓ README.md (main one)
+# ✓ CYCLE_COMPLET.md
+# ✓ PUBLICATION_GITHUB_GUIDE.md
+# ✓ GUIDE_UTILISATION_FORMULAIRE_V4.md
+# ✓ MOTEUR_CALCUL_JS.md
+# ✓ DEPLOYMENT_GUIDE_V1.md
+# ✓ PROJECT_FINAL_STATUS.md
+# ✓ azure-function/ (source code)
+# ✓ tests/ (unit tests)
+# ✓ dataverse-import/ (import scripts)
