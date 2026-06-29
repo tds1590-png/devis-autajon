@@ -1,11 +1,9 @@
-import {IInputs, IOutputs} from "./generated/ManifestTypes";
+export class DevisCalculator {
 
-export class DevisCalculator implements ComponentFramework.StandardControl<IInputs, IOutputs> {
-
-	private _container: HTMLDivElement;
-	private _context: ComponentFramework.Context<IInputs>;
-	private _notifyOutputChanged: () => void;
-	private _iframe: HTMLIFrameElement;
+	private _container: HTMLDivElement | null = null;
+	private _context: any;
+	private _notifyOutputChanged: (() => void) | null = null;
+	private _iframe: HTMLIFrameElement | null = null;
 	private _githubUrl: string = "https://tds1590-png.github.io/devis-autajon/devis-final.html";
 
 	/**
@@ -23,7 +21,7 @@ export class DevisCalculator implements ComponentFramework.StandardControl<IInpu
 	 * @param notifyOutputChanged A function to raise when the output value has to notify the framework that this object has been updated.
 	 * @param state A piece of this control instance state that persists across several calls to getOutputs() and updateView().
 	 */
-	public init(context: ComponentFramework.Context<IInputs>, notifyOutputChanged: () => void, state: ComponentFramework.Dictionary, container:HTMLDivElement): void
+	public init(context: any, notifyOutputChanged: () => void, state: any, container: HTMLDivElement): void
 	{
 		this._context = context;
 		this._container = container;
@@ -40,7 +38,9 @@ export class DevisCalculator implements ComponentFramework.StandardControl<IInpu
 		// Ajouter des attributs de sécurité
 		this._iframe.setAttribute("sandbox", "allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation");
 		
-		this._container.appendChild(this._iframe);
+		if (this._container) {
+			this._container.appendChild(this._iframe);
+		}
 
 		// Configuration du postMessage pour la communication bidirectionnelle
 		window.addEventListener("message", (event) => {
@@ -60,7 +60,7 @@ export class DevisCalculator implements ComponentFramework.StandardControl<IInpu
 	 * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width, offline status, control metadata values such as label, visible, etc.
 	 * @param context The entire property bag available to control via Context Object; It contains values as set up by the creator of this control and all values the property pane provides.
 	 */
-	public updateView(context: ComponentFramework.Context<IInputs>): void
+	public updateView(context: any): void
 	{
 		// No update needed
 	}
@@ -69,7 +69,7 @@ export class DevisCalculator implements ComponentFramework.StandardControl<IInpu
 	 * It is called by the framework prior to a control receiving new data.
 	 * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as "bound" or "output"
 	 */
-	public getOutputs(): IOutputs
+	public getOutputs(): any
 	{
 		return {};
 	}
@@ -91,7 +91,12 @@ export class DevisCalculator implements ComponentFramework.StandardControl<IInpu
 	private async _saveDevisToDataverse(devisData: any): Promise<void> {
 		try {
 			// Récupérer le Web API client
-			const clientUrl = this._context.organizationSettings.organizationUrl;
+			const clientUrl = this._context?.organizationSettings?.organizationUrl;
+			
+			if (!clientUrl) {
+				console.log("✅ Devis data received (offline mode):", devisData);
+				return;
+			}
 			
 			// Créer l'entité hp_devis
 			const devisEntity = {
@@ -103,7 +108,7 @@ export class DevisCalculator implements ComponentFramework.StandardControl<IInpu
 				"hp_price": devisData.prixClient,
 				"hp_margin": devisData.margeBrute,
 				"hp_frontal": devisData.frontal,
-				"hp_adhesive": devisData.adhesif,
+				"hp_adhesif": devisData.adhesif,
 				"hp_color": devisData.color
 			};
 
