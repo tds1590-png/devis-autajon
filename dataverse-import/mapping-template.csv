@@ -1,0 +1,14 @@
+CsvFile;DataverseTable;PrimaryKeyOrAltKey;Notes
+Site.csv;hp_site;hp_code;Cle alternative Code
+ParametreGlobal.csv;hp_parametreglobal;hp_cle;Unicite par cle
+Consommable.csv;hp_consommable;hp_type;Choice/text selon schema
+Outillage.csv;hp_outillage;hp_operation+hp_site;Prix par operation et site
+Machine.csv;hp_machine;hp_site+hp_type;HP6000/Finition
+Pose.csv;hp_pose;hp_site+hp_type+hp_presse;DeveloppeMaxi par presse
+OperationFinitionInline.csv;hp_operationfinitioninline;hp_site+hp_operation+hp_press;Vitesse et gache
+FilmPelliculage.csv;hp_filmpelliculage;hp_libelle;PrixM2
+Support.csv;hp_support;hp_cle;Frontal/Adhesif/Backing
+Dorure.csv;hp_dorure;hp_libelle;PrixHorsFG
+Commercial.csv;hp_commercial;hp_nom+hp_site;Telephone/Email
+ProfilCouleurHP.csv;hp_profilcouleurhp;hp_nom;Clics et reduction
+ProfilCouleurFinition.csv;hp_profilcouleurfinition;hp_site+hp_press+hp_codecouleur;Couleurs et vernis

@@ -1,0 +1,11 @@
+Cle;Valeur;Description
+FraisGeneraux;0,2;FG sur couts matiere
+MargeDevis;0,8;prixDevis = coutTotal / 0,80
+SurplusProduction;0;
+TauxConditionnement;0,009;x cout support
+ConditionnementMin;14,81;min emballage
+TauxTransport;0,063;x cout support
+FraisFixe;50;forfait fixe
+Interpose;4;mm entre etiquettes
+Rives;18;mm marges laterales
+LaizeDecoupeMax;330;mm

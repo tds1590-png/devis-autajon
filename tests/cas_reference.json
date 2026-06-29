@@ -1,0 +1,16 @@
+{
+  "site": "AESU",
+  "quantite": 1000,
+  "nbReferences": 1,
+  "formatLaize": 100,
+  "formatAvance": 150,
+  "frontal": "Frozen Orion Diamond",
+  "adhesif": "Lavable",
+  "backing": "Glassine",
+  "couleurNum": "Noir",
+  "presseFinition": null,
+  "couleurFinition": null,
+  "margeManuelle": 0,
+  "expectedPrixDevis": 67.60,
+  "devise": "CHF"
+}

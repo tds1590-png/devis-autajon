@@ -1,0 +1,10 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "DataverseConnectionString": "AuthType=ClientSecret;Url=https://YOURORG.crm4.dynamics.com;ClientId=...;ClientSecret=...;TenantId=...",
+    "USE_CSV_REPOSITORY": "false",
+    "SEED_DATA_PATH": "..\\seed-data"
+  }
+}
