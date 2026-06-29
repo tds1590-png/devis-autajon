@@ -1,0 +1,52 @@
+# PCF Component .gitignore
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build outputs
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# Generated files
+generated/
+*.d.ts
+*.js
+!index.ts
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log
+yarn-error.log
+
+# Temporary
+temp/
+tmp/
+.tmp
+*.tmp
+
+# Visual Studio
+bin/
+obj/
+.vs/
+.vsconfig
+
+# Solution artifacts
+*.zip
+*.dll
+*.pdb

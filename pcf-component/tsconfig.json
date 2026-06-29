@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "ES6",
+    "lib": [
+      "ES2015",
+      "DOM"
+    ],
+    "declaration": true,
+    "outDir": "./out",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "node",
+      "ComponentFramework/index"
+    ]
+  },
+  "include": [
+    "index.ts",
+    "generated/ManifestTypes.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "out"
+  ]
+}
