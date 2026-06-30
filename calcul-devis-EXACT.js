@@ -21,29 +21,29 @@ const PARAMETRES = {
 
 // Sites
 const SITES_DATA = {
-    'AEME': {
-        code: 'AEME',
-        laizeMaxiDefaut: 333,
+    'AEAT': {
+        code: 'AEAT',
+        laizeMaxiDefaut: 330,
         devise: 'EUR',
         coeffChange: 1.0
     }
 };
 
-// Machines (VRAIES DONNÉES depuis seed-data/Machine.csv)
+// Machines
 const MACHINES_DATA = {
-    'AEME_HP6000': {
-        site: 'AEME',
+    'AEAT_HP6000': {
+        site: 'AEAT',
         type: 'HP6000',
-        laizeMaxi: 333,
-        tauxHoraire: 210,
-        vitesseBase: 3600  // ml/min
+        laizeMaxi: 330,
+        tauxHoraire: 150,
+        vitesseBase: 150
     },
-    'AEME_Finition': {
-        site: 'AEME',
+    'AEAT_Finition': {
+        site: 'AEAT',
         type: 'Finition',
-        laizeMaxi: 333,
-        tauxHoraire: 107,
-        vitesseBase: 2000  // ml/min (estimation)
+        laizeMaxi: 330,
+        tauxHoraire: 80,
+        vitesseBase: 100
     }
 };
 
@@ -172,12 +172,12 @@ const CONSOMMABLES_DATA = {
 
 // Développé par pose (ml/pose selon format d'avance)
 const DEVELOPPE_DATA = {
-    'AEME_HP6000_150': 2500,  // 2500 ml pour 150mm d'avance
-    'AEME_HP6000_200': 3000,
-    'AEME_HP6000_300': 4000,
-    'AEME_Finition_150': 2000,
-    'AEME_Finition_200': 2500,
-    'AEME_Finition_300': 3000
+    'AEAT_HP6000_150': 2500,  // 2500 ml pour 150mm d'avance
+    'AEAT_HP6000_200': 3000,
+    'AEAT_HP6000_300': 4000,
+    'AEAT_Finition_150': 2000,
+    'AEAT_Finition_200': 2500,
+    'AEAT_Finition_300': 3000
 };
 
 // Outillages
@@ -262,7 +262,7 @@ function coutEncres(profilFinition, m2) {
  * Coût = frappes/1000 × prix/1000 clics
  */
 function coutClics(input, profilHP, ml) {
-    const devR = DEVELOPPE_DATA[`${input.site}_HP6000_${input.formatAvance}`] || DEVELOPPE_DATA['AEME_HP6000_150'];
+    const devR = DEVELOPPE_DATA[`${input.site}_HP6000_${input.formatAvance}`] || 2500;
     if (devR <= 0) return 0;
     return (ml / (devR / 1000.0)) * profilHP.nbCouleurHP / 1000.0 * profilHP.prixMilleClics;
 }
@@ -277,7 +277,7 @@ function coutCliches(input, profilFinition, mlRoulFin, fg) {
     const nbColors = profilFinition.nbCouleurFlexo + profilFinition.nbCouleurSeri 
                    + profilFinition.nbVernisFlexo + profilFinition.nbVernisSeri;
     
-    const devR = DEVELOPPE_DATA[`${input.site}_Finition_${input.formatAvance}`] || DEVELOPPE_DATA['AEME_Finition_150'];
+    const devR = DEVELOPPE_DATA[`${input.site}_Finition_${input.formatAvance}`] || 2000;
     const termeRoulage = devR > 0 ? (mlRoulFin / (devR / 1000.0)) * nbColors / 1000.0 : 0;
     const termePrix = PARAMETRES.PrixCliche * input.nbReferences * fg * nbColors;
     
@@ -314,7 +314,7 @@ function calculerOutillages(input) {
  */
 function calculerDevis(input) {
     const {
-        site = 'AEME',
+        site = 'AEAT',
         quantite = 1000,
         nbReferences = 1,
         formatLaize = 100,
@@ -335,9 +335,9 @@ function calculerDevis(input) {
 
     // Données de référence
     const P = PARAMETRES;
-    const siteData = SITES_DATA[site] || SITES_DATA['AEME'];
-    const hpData = MACHINES_DATA[`${site}_HP6000`] || MACHINES_DATA['AEME_HP6000'];
-    const finData = MACHINES_DATA[`${site}_Finition`] || MACHINES_DATA['AEME_Finition'];
+    const siteData = SITES_DATA[site] || SITES_DATA['AEAT'];
+    const hpData = MACHINES_DATA[`${site}_HP6000`] || MACHINES_DATA['AEAT_HP6000'];
+    const finData = MACHINES_DATA[`${site}_Finition`] || MACHINES_DATA['AEAT_Finition'];
     const profilHp = PROFILS_HP_DATA[couleurNum] || PROFILS_HP_DATA['Noir'];
     const supportKey = `${frontal}/${adhesif}/${backing}`;
     const prixSupport = SUPPORTS_DATA[supportKey] || 1.50;
